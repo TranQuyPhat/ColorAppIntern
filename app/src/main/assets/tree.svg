@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 1024 1024"
+   class="icon"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="tree.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs5" />
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showguides="true"
+     inkscape:zoom="0.96625"
+     inkscape:cx="318.75809"
+     inkscape:cy="505.56274"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
+  <path
+     d="M207.2 316a298.3 250.7 0 1 0 596.6 0 298.3 250.7 0 1 0-596.6 0Z"
+     fill="#00AD68"
+     id="path2" />
+  <path
+     d="M648.4 545.1a93.6 84.8 0 1 0 187.2 0 93.6 84.8 0 1 0-187.2 0Z"
+     fill="#7CDFA8"
+     id="path3" />
+  <path
+     d="M188.6 630a93.6 84.8 0 1 0 187.2 0 93.6 84.8 0 1 0-187.2 0Z"
+     fill="#218649"
+     id="path4" />
+  <path
+     d="m 650.74941,920.57529 c 0,-10.3 -8.4,-18.7 -18.7,-18.7 h -247.9 c -10.3,0 -18.7,8.4 -18.7,18.7 v 18.7 c 0,10.3 8.4,18.7 18.7,18.7 h 247.9 c 10.3,0 18.7,-8.4 18.7,-18.7 z"
+     fill="#218649"
+     id="path5" />
+  <path
+     id="path1-9"
+     d="m 450.16063,561.36694 v 165.7925 l -81.0175,-66.045 c -8.238,18.26613 -23.30553,33.34653 -42.3275,42.6375 l 123.345,100.6075 v 97.89999 h 111.1 V 724.95944 l 135.3875,-106.75 a 93.6,84.8 0 0 1 -41.62,-43.31 l -93.7675,73.86 v -87.3775 a 298.3,250.7 0 0 1 -111.1,-0.015 z" />
+</svg>

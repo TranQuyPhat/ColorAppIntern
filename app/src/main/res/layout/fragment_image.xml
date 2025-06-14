@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Header nằm trên cùng -->
+    <include
+        android:id="@+id/headerBar"
+        layout="@layout/header_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <include
+        android:id="@+id/menuSide"
+        layout="@layout/menu_side"
+        android:background="@android:color/black"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/originalImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/catline"
+        app:layout_constraintBottom_toTopOf="@+id/tracingContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <FrameLayout
+        android:id="@+id/tracingContainer"
+        android:layout_width="290dp"
+        android:layout_height="400dp"
+        android:background="@android:color/white"
+
+        app:layout_constraintTop_toBottomOf="@id/headerBar"
+        app:layout_constraintBottom_toTopOf="@id/colorPicker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <LinearLayout
+        android:id="@+id/colorPicker"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#F5F5F5"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/doneAnimation"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        app:lottie_fileName="success.json"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:layout_constraintTop_toTopOf="@id/tracingContainer"
+        app:layout_constraintBottom_toBottomOf="@id/tracingContainer"
+        app:layout_constraintStart_toStartOf="@id/tracingContainer"
+        app:layout_constraintEnd_toEndOf="@id/tracingContainer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

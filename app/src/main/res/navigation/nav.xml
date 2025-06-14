@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/firstFragment">
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.example.myapplication.Fragment.ImageFragment"
+        android:label="FirstFragment"
+        tools:layout="@layout/fragment_image">
+        <action
+            android:id="@+id/toPencilFragment"
+            app:destination="@id/toPencilFragment" />
+        <action
+            android:id="@+id/toGridFragment"
+            app:destination="@id/toGridFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/toGridFragment"
+        android:name="com.example.myapplication.Fragment.GridFragment"
+        android:label="GridFragment"
+        tools:layout="@layout/fragment_grid" />
+
+    <fragment
+        android:id="@+id/toPencilFragment"
+        android:name="com.example.myapplication.Fragment.PenSelectionFrament"
+        android:label="Chọn bút"
+        tools:layout="@layout/fragment_pen_selection_frament" >
+        <action
+            android:id="@+id/backToImageFragment"
+            app:destination="@id/firstFragment"
+            app:popUpTo="@id/firstFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+
+
+</navigation>
