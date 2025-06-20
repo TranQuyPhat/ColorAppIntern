@@ -11,16 +11,7 @@ import com.example.myapplication.Adapter.ImageAdapter
 import com.example.myapplication.Adapter.PenAdapter
 import com.example.myapplication.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PenSelectionFrament.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PenSelectionFrament : Fragment() {
     private lateinit var recycleView: RecyclerView
     private lateinit var adapter: PenAdapter
@@ -31,24 +22,22 @@ class PenSelectionFrament : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_pen_selection_frament, container, false)
 
-        val penDrawables = listOf(
+        val btnBack = view.findViewById<View>(R.id.btnBack)
+
+        adapter = PenAdapter { selectResId ->
+            parentFragmentManager.setFragmentResult(
+                "PEN_SELECTION_REQUEST",
+                Bundle().apply {
+                    putInt("SELECTED_PEN_RES_ID", selectResId)
+                })
+            parentFragmentManager.popBackStack()
+        }
+        adapter.items = listOf(
             R.drawable.pen1,
             R.drawable.pen5,
             R.drawable.pencil2,
             R.drawable.pen1
         )
-        val btnBack = view.findViewById<View>(R.id.btnBack)
-
-        adapter = PenAdapter(penDrawables) { selectedResId ->
-            // Truyền resource ID đã chọn về ImageFragment
-            parentFragmentManager.setFragmentResult(
-                "PEN_SELECTION_REQUEST",
-                Bundle().apply { putInt("SELECTED_PEN_RES_ID", selectedResId) }
-            )
-
-            // Quay lại màn hình trước
-            parentFragmentManager.popBackStack()
-        }
         btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }

@@ -7,7 +7,9 @@ plugins {
 android {
     namespace = "com.example.myapplication"
     compileSdk = 35
-
+    buildFeatures {
+        viewBinding = true
+    }
     defaultConfig {
         applicationId = "com.example.myapplication"
         minSdk = 24
@@ -42,6 +44,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":base"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -50,6 +53,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.core.animation)
+    implementation(libs.androidx.ui.graphics.android)
+    implementation(libs.androidx.preference.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -59,4 +64,5 @@ dependencies {
     implementation ("androidx.interpolator:interpolator:1.0.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation ("com.airbnb.android:lottie:6.3.0")
+    implementation ("com.github.yukuku:ambilwarna:2.0.1")
 }

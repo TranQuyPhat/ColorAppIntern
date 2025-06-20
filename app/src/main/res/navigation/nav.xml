@@ -3,39 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/firstFragment">
+    app:startDestination="@id/homeFragment">
 
-    <fragment
-        android:id="@+id/firstFragment"
-        android:name="com.example.myapplication.Fragment.ImageFragment"
-        android:label="FirstFragment"
-        tools:layout="@layout/fragment_image">
+    <fragment android:id="@+id/homeFragment"
+        android:name="com.example.myapplication.Fragment.HomeFragment"
+        tools:layout="@layout/fragment_homeragment"
+        >
         <action
-            android:id="@+id/toPencilFragment"
-            app:destination="@id/toPencilFragment" />
-        <action
-            android:id="@+id/toGridFragment"
+            android:id="@+id/homeToGrid"
             app:destination="@id/toGridFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_imageFragment"
+            app:destination="@id/imageFragment" />
 
     </fragment>
-
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="com.example.myapplication.Fragment.ImageFragment"
+        android:label="imageFragment"
+        tools:layout="@layout/fragment_image">
+        <action
+            android:id="@+id/action_imageFragment_to_toPencilFragment2"
+            app:destination="@id/toPencilFragment" />
+    </fragment>
     <fragment
         android:id="@+id/toGridFragment"
         android:name="com.example.myapplication.Fragment.GridFragment"
-        android:label="GridFragment"
-        tools:layout="@layout/fragment_grid" />
+        tools:layout="@layout/fragment_grid"/>
+
 
     <fragment
         android:id="@+id/toPencilFragment"
         android:name="com.example.myapplication.Fragment.PenSelectionFrament"
         android:label="Chọn bút"
-        tools:layout="@layout/fragment_pen_selection_frament" >
-        <action
-            android:id="@+id/backToImageFragment"
-            app:destination="@id/firstFragment"
-            app:popUpTo="@id/firstFragment"
-            app:popUpToInclusive="true"/>
-    </fragment>
+        tools:layout="@layout/fragment_pen_selection_frament" />
 
 
 

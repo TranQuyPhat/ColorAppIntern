@@ -5,41 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.caverock.androidsvg.SVG
+import com.example.base.adapter.BaseAdapter
 import com.example.myapplication.R
+import com.example.myapplication.databinding.ItemImageBinding
 
 class ImageAdapter(
-    private val items: List<String>,
-    private val onClick: (String) -> Unit
-) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+    onClick: (String) -> Unit
+) : BaseAdapter<String, ItemImageBinding>(ItemImageBinding::inflate, onClick) {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageView: ImageView = view.findViewById(R.id.imageView)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val fileName = items[position]
-
+    override fun onBind(binding: ItemImageBinding, item: String, position: Int) {
         try {
-            val inputStream = holder.itemView.context.assets.open(fileName)
+            val inputStream = binding.root.context.assets.open(item)
             val svg = SVG.getFromInputStream(inputStream)
             val drawable = PictureDrawable(svg.renderToPicture())
-            holder.imageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-            holder.imageView.setImageDrawable(drawable)
+            binding.imageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+            binding.imageView.setImageDrawable(drawable)
+            inputStream.close()
         } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        holder.itemView.setOnClickListener {
-            onClick(fileName)
+            Toast.makeText(binding.root.context, "Không thể tải $item", Toast.LENGTH_SHORT).show()
         }
     }
-
-    override fun getItemCount() = items.size
 }
