@@ -6,9 +6,12 @@
     app:startDestination="@id/homeFragment">
 
     <fragment android:id="@+id/homeFragment"
-        android:name="com.example.myapplication.Fragment.HomeFragment"
-        tools:layout="@layout/fragment_homeragment"
+        android:name="com.example.myapplication.Fragment.home.HomeFragment"
+        tools:layout="@layout/fragment_home"
         >
+        <action
+            android:id="@+id/homeToSetting"
+            app:destination="@id/toSettingFragment" />
         <action
             android:id="@+id/homeToGrid"
             app:destination="@id/toGridFragment" />
@@ -25,16 +28,23 @@
         <action
             android:id="@+id/action_imageFragment_to_toPencilFragment2"
             app:destination="@id/toPencilFragment" />
+        <action
+            android:id="@+id/action_ImageFragment_to_toSettingFragment"
+            app:destination="@+id/toSettingFragment"/>
     </fragment>
+
     <fragment
         android:id="@+id/toGridFragment"
         android:name="com.example.myapplication.Fragment.GridFragment"
         tools:layout="@layout/fragment_grid"/>
 
-
+    <fragment
+        android:id="@+id/toSettingFragment"
+        android:name="com.example.myapplication.Fragment.setting.SettingFragment"
+        tools:layout="@layout/fragment_setting"/>
     <fragment
         android:id="@+id/toPencilFragment"
-        android:name="com.example.myapplication.Fragment.PenSelectionFrament"
+        android:name="com.example.myapplication.Fragment.PenSelector.PenSelectionFrament"
         android:label="Chọn bút"
         tools:layout="@layout/fragment_pen_selection_frament" />
 

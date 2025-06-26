@@ -17,33 +17,35 @@ import android.graphics.Paint
 import android.graphics.SweepGradient
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.PictureDrawable
-import android.media.Image
 import android.provider.MediaStore
-import android.view.ViewOutlineProvider
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.graphics.Canvas
-import androidx.core.content.ContextCompat
-import androidx.navigation.Navigation.findNavController
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.RenderMode
 import com.caverock.androidsvg.SVG
+import com.example.base.clickWithSound
 import com.example.myapplication.CustomView.Tracing.OnDrawingCompleteListener
 //import com.example.myapplication.CustomView.Tracing.TracingView2
 import com.example.myapplication.CustomView.Tracing.TracingView3
-import com.example.myapplication.MainActivity
+import com.example.myapplication.model.ImageViewModel
+import nl.dionsegijn.konfetti.core.Party
+import nl.dionsegijn.konfetti.core.Position
+import nl.dionsegijn.konfetti.core.emitter.Emitter
+import nl.dionsegijn.konfetti.xml.KonfettiView
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import yuku.ambilwarna.AmbilWarnaDialog
+import java.util.concurrent.TimeUnit
 
 class ImageFragment : Fragment() {
     private var tracingView: TracingView3? = null
-    private var selectedPenResId: Int = R.drawable.pen1 // Mặc định là bút vẽ đầu tiên
+    private var selectedPenResId: Int = R.drawable.ic_pen3
+    private val viewModel by viewModels<ImageViewModel>()
     companion object {
         private const val ARG_FILE_NAME = "file_name"
         private const val ARG_LEVEL = "level"
@@ -77,20 +79,23 @@ class ImageFragment : Fragment() {
         val undoButton = view.findViewById<ImageButton>(R.id.btn_undo)
         val level = arguments?.getInt(ARG_LEVEL) ?: 0
         val isFreeDrawMode = level == 0
-
+        val btnSetting=view.findViewById<ImageButton>(R.id.btn_settings)
         val gridButton = view.findViewById<ImageButton>(R.id.btngrid)
         val paintButton=view.findViewById<ImageButton>(R.id.btn_pen)
         val doneAnimation = view.findViewById<LottieAnimationView>(R.id.doneAnimation).apply {
             setRenderMode(RenderMode.HARDWARE) //
             setLayerType(View.LAYER_TYPE_HARDWARE, null)
-
-            setAnimation("success.json") // hoặc setAnimation(R.raw.done)
+            setAnimation("success.json")
             buildDrawingCache()
             pauseAnimation()
             visibility = View.GONE
         }
-        val btnSave = successOverlay.findViewById<ImageButton>(R.id.btnsave)
 
+        val btnSave = successOverlay.findViewById<ImageButton>(R.id.btnsave)
+        btnSetting.clickWithSound {
+
+            findNavController().navigate(R.id.action_ImageFragment_to_toSettingFragment)
+        }
         btnSave.setOnClickListener {
             val filename = "drawing_${System.currentTimeMillis()}.png"
             val contentValues = ContentValues().apply {
@@ -132,8 +137,7 @@ class ImageFragment : Fragment() {
                 tracingView?.setPenNibResource(resId)
             }
         }
-        // 1. Set text cho TextView trong header_bar (include @id/headerBar)
-        // tìm headerBar rồi lấy tv_level
+
         val headerBar = view.findViewById<View>(R.id.headerBar)
         val tvLevel = headerBar.findViewById<TextView>(R.id.tv_level)
         tvLevel.text = if (isFreeDrawMode) "Free Draw Mode" else "LEVEL $level"
@@ -155,7 +159,6 @@ class ImageFragment : Fragment() {
             val colorPicker = view.findViewById<LinearLayout>(R.id.colorPicker)
             val colors = extractColorsFromSVG(requireContext(), fileName)
 
-// Thêm các màu lấy từ SVG
             for (color in colors) {
                 val colorView = View(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(100, 100).apply {
@@ -180,7 +183,6 @@ class ImageFragment : Fragment() {
                 colorPicker.addView(colorView)
             }
 
-// Thêm màu tùy chỉnh cuối cùng (ô tròn trắng mở dialog màu)
             val customColorView = object : View(requireContext()) {
                 override fun onDraw(canvas: android.graphics.Canvas) {
                     val radius = width / 2f
@@ -232,13 +234,13 @@ class ImageFragment : Fragment() {
             containerView.addView(tracingView, params)
             tracingView?.setOnDrawingCompleteListener(  object : OnDrawingCompleteListener {
                 override fun onDrawingComplete() {
-                    doneAnimation.visibility = View.VISIBLE
-                    doneAnimation.playAnimation()
-                    doneAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-                        override fun onAnimationStart(animation: Animator) {}
-                        override fun onAnimationEnd(animation: Animator) {
-                            doneAnimation.removeAllAnimatorListeners()
-                            doneAnimation.visibility = View.GONE
+//                    doneAnimation.visibility = View.VISIBLE
+//                    doneAnimation.playAnimation()
+//                    doneAnimation.addAnimatorListener(object : Animator.AnimatorListener {
+//                        override fun onAnimationStart(animation: Animator) {}
+//                        override fun onAnimationEnd(animation: Animator) {
+//                            doneAnimation.removeAllAnimatorListeners()
+//                            doneAnimation.visibility = View.GONE
 
                             // Delay 1 giây rồi load level kế
                             view?.postDelayed({
@@ -246,9 +248,18 @@ class ImageFragment : Fragment() {
                                 val anim = AnimationUtils.loadAnimation(context, R.anim.fade_in)
                                 successOverlay.visibility = View.VISIBLE
                                 successOverlay.startAnimation(anim)
-
-                                successOverlay.visibility = View.VISIBLE
-
+                                val konfettiView = view.findViewById<KonfettiView>(R.id.konfettiView)
+                                konfettiView.stopGracefully() // tránh hiệu ứng cũ chưa kết thúc
+                                konfettiView.start(
+                                    Party(
+                                        spread = 360,
+                                        speed = 10f,
+                                        maxSpeed = 30f,
+                                        emitter = Emitter(duration = 1500, TimeUnit.MILLISECONDS).max(100),
+                                        position = Position.Relative(0.5, 0.0),
+                                        colors = listOf(Color.YELLOW, Color.RED, Color.MAGENTA, Color.GREEN, Color.CYAN)
+                                    )
+                                )
                                 val resultBitmap = tracingView?.getDrawingCacheBitmap()
                                 if (resultBitmap != null) {
                                     testimageori.setImageBitmap(resultBitmap)
@@ -281,10 +292,10 @@ class ImageFragment : Fragment() {
                                 }
                             }, 1000)
                         }
-                        override fun onAnimationCancel(animation: Animator) {}
-                        override fun onAnimationRepeat(animation: Animator) {}
-                    })
-                }
+//                        override fun onAnimationCancel(animation: Animator) {}
+//                        override fun onAnimationRepeat(animation: Animator) {}
+//                    })
+//                }
             })
             try {
                 val imageInputStream = requireContext().assets.open(fileName)

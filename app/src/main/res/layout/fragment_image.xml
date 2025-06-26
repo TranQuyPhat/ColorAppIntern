@@ -30,7 +30,7 @@
         android:layout_width="160dp"
         android:layout_height="134dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/catline"
+        android:src="@drawable/img_catline"
         app:layout_constraintBottom_toTopOf="@+id/tracingContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,67 +74,79 @@
         app:lottie_fileName="success.json"
         app:lottie_loop="false" />
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/chooseView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:visibility="gone"
-        android:orientation="vertical"
         android:background="@drawable/grad_blu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:id="@+id/testimageori"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@drawable/catline"
-            android:layout_marginBottom="64dp"/>
-
-        <TextView
-            android:id="@+id/successText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="48dp"
-            android:text="Chúc mừng bạn đã hoàn thành!"
-            android:textColor="@android:color/white"
-            android:textSize="32sp"
-
-            android:gravity="center"
-            android:textStyle="bold" />
+        android:layout_gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:paddingTop="32dp">
 
+            <ImageView
+                android:id="@+id/testimageori"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/bg_circle_white"
+                android:elevation="8dp"
+                android:layout_marginBottom="32dp"/>
 
-            <ImageButton
-                android:id="@+id/btnReplay"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/successText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:src="@drawable/undo" />
+                android:layout_marginBottom="48dp"
+                android:text="Chúc mừng bạn đã hoàn thành!"
+                android:textColor="@android:color/white"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:gravity="center" />
 
-            <ImageButton
-                android:id="@+id/btnsave"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_weight="1"
-                android:src="@drawable/baseline_download_24"/>
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/btnNext"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:src="@drawable/baseline_skip_next_24"/>
+                <ImageButton
+                    android:id="@+id/btnReplay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_undo" />
+
+                <ImageButton
+                    android:id="@+id/btnsave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="8dp"
+                    android:src="@drawable/baseline_download_24" />
+
+                <ImageButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/baseline_skip_next_24" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+        <!-- 🔥 KonfettiView nằm trên cùng -->
+        <nl.dionsegijn.konfetti.xml.KonfettiView
+            android:id="@+id/konfettiView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top" />
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
